@@ -1,0 +1,567 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"></head><body><title>세르클 화면 방향 시안</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 시안 틀: 위에 방향 고르기 띠, 아래에 세르클 화면 한 장(왼쪽 메뉴 216px + 본문). 방향 셋이 같은 메뉴와 같은 숫자를 쓰고 본문 보여 주는 방식만 다르다 */
+:root {
+  color-scheme: light;
+  --bg: #F3F4F6;
+  --surface: #FFFFFF;
+  --soft: #F1F2F5;
+  --tile: #F6F7F9;
+  --ink: #16181D;
+  --title: #3B4250;
+  --muted: #5B6270;
+  --off: #8A909B;
+  --line: #E3E5EA;
+  --line-soft: #EEF0F3;
+  --accent: #C2492A;
+  --accent-hover: #A63F22;
+  --accent-tint: #FFF3EE;
+  --accent-bar: #F2B8A2;
+  --warn-fg: #8F5B00;
+  --warn-bg: #FDF3DC;
+  --good-fg: #1C7A4F;
+  --good-bg: #E3F4EA;
+  --nav-bg: #1F232A;
+  --nav-title: #F2F3F5;
+  --nav-fg: #B4BAC4;
+  --nav-muted: #8A909B;
+  --nav-on: #343A44;
+  --nav-sep: #343A44;
+  --tool-bg: #FFFFFF;
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: anywhere; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* 방향 고르기 띠 */
+.tool { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--tool-bg); border-bottom: 1px solid var(--line);
+  padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--tool-bg); }
+.tool-name { font-weight: 700; }
+.seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; background: var(--soft); border-radius: 9px; padding: 3px; gap: 2px; }
+.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 7px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); font-weight: 700; box-shadow: 0 1px 2px rgba(22,24,29,.08); }
+.tool-note { color: var(--muted); font-size: 12.5px; flex: 1 1 280px; min-width: 0; }
+
+/* 세르클 화면 틀 */
+.frame { display: flex; min-height: calc(100% - 56px); }
+.rail { flex: 0 0 216px; background: var(--nav-bg); color: var(--nav-fg); padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
+.rail-logo { display: flex; align-items: center; gap: 8px; color: var(--nav-title); font-weight: 700; font-size: 16px; padding: 0 8px 14px; }
+.rail-logo i { width: 22px; height: 22px; border-radius: 50%; border: 5px solid #E2643E; display: inline-block; }
+.rail-group { padding: 8px 0 10px; border-bottom: 1px solid var(--nav-sep); }
+.rail-group:last-of-type { border-bottom: 0; }
+.rail-cap { display: flex; gap: 10px; color: var(--nav-title); font-weight: 700; font-size: 13px; padding: 4px 8px 6px; }
+.rail-cap b { color: var(--nav-muted); font-weight: 700; width: 12px; }
+.rail-group.on .rail-cap b { color: #E2643E; }
+.rail-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 8px 7px 30px; border-radius: 8px; font-size: 13px; }
+.rail-group.plain .rail-item { padding-left: 18px; }
+.rail-item.on { background: var(--nav-on); color: var(--nav-title); font-weight: 700; }
+.rail-badge { background: var(--accent); color: #fff; font-size: 11px; border-radius: 9px; padding: 0 7px; line-height: 18px; }
+.rail-me { margin-top: auto; display: flex; align-items: center; gap: 8px; padding: 8px; font-size: 12.5px; color: var(--nav-muted); }
+.rail-me i { width: 28px; height: 28px; border-radius: 50%; background: #343A44; color: var(--nav-title); font-style: normal; display: grid; place-items: center; font-weight: 700; }
+.main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.top { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; padding: 10px 24px; border-bottom: 1px solid var(--line); background: var(--surface); font-size: 12.5px; color: var(--muted); }
+.top strong { color: var(--ink); }
+.top .sp { flex: 1; }
+.tag-ex { background: var(--soft); color: var(--title); border-radius: 6px; padding: 1px 8px; font-weight: 600; }
+.body { flex: 1; padding: 28px 32px 48px; min-width: 0; }
+
+/* 공용 조각 */
+.btn { border: 0; border-radius: 10px; padding: 11px 18px; font-weight: 700; font-size: 14px; white-space: nowrap; }
+.btn-main { background: var(--accent); color: #fff; }
+.btn-main:hover { background: var(--accent-hover); }
+.btn-soft { background: var(--soft); color: var(--title); }
+.btn-line { background: var(--surface); border: 1px solid var(--line); color: var(--title); }
+.btn-big { padding: 15px 20px; font-size: 16px; border-radius: 12px; }
+.link { color: var(--accent); font-weight: 600; background: none; border: 0; padding: 0; font-size: inherit; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+.chev { color: var(--off); font-size: 18px; line-height: 1; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 1px 8px; background: var(--soft); color: var(--title); }
+.pill.warn { background: var(--warn-bg); color: var(--warn-fg); }
+.pill.good { background: var(--good-bg); color: var(--good-fg); }
+.pill.acc { background: var(--accent-tint); color: var(--accent); }
+.say { background: var(--tile); border-radius: 12px; padding: 14px 16px; color: var(--title); font-size: 14.5px; line-height: 1.6; }
+.say small { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+
+/* A 한 문장 */
+.a-wrap { max-width: 640px; margin-inline: auto; display: flex; flex-direction: column; gap: 36px; }
+.a-date { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+.a-head { font-size: 30px; line-height: 1.35; font-weight: 800; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.a-head em { font-style: normal; color: var(--accent); }
+.a-lead { font-size: 16px; color: var(--title); margin: 10px 0 0; }
+.a-bar { margin-top: 20px; height: 10px; border-radius: 5px; background: var(--soft); display: flex; overflow: hidden; }
+.a-bar span { display: block; height: 100%; }
+.a-legend { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.a-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 22px; }
+.a-sec h2 { font-size: 17px; margin: 0 0 6px; }
+.a-rows { display: flex; flex-direction: column; }
+.a-row { display: flex; align-items: center; gap: 14px; padding: 15px 4px; border-bottom: 1px solid var(--line-soft); background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left; width: 100%; }
+.a-row:hover { background: var(--surface); }
+.a-row .t { flex: 1; min-width: 0; font-size: 15.5px; font-weight: 600; }
+.a-row .t small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.a-row .v { font-weight: 700; white-space: nowrap; }
+.a-more { margin-top: 12px; }
+.d-wrap { max-width: 800px; }
+.d-chart { background: var(--surface); border-radius: 16px; padding: 14px 18px 14px; margin-top: 20px; }
+.d-chart .c-chart { margin-top: 0; }
+.a-call { max-width: 600px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; }
+.a-prog { display: flex; align-items: center; gap: 12px; }
+.a-prog .track { flex: 1; height: 6px; border-radius: 3px; background: var(--soft); overflow: hidden; }
+.a-prog .track span { display: block; height: 100%; width: 5%; background: var(--ink); }
+.a-card { background: var(--surface); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 1px 3px rgba(22,24,29,.06); }
+.a-name { font-size: 26px; font-weight: 800; margin: 6px 0 2px; }
+.a-why { font-size: 18px; line-height: 1.5; font-weight: 600; margin: 0; text-wrap: pretty; }
+.a-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.a-actions .btn-big { grid-column: 1 / -1; }
+.a-next { display: flex; align-items: center; gap: 10px; color: var(--muted); padding: 4px; }
+.a-done { margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 18px; }
+.a-done-card { background: var(--surface); border-radius: 14px; padding: 20px; display: flex; gap: 14px; align-items: flex-start; max-width: 460px; opacity: .9; }
+.a-done-card i { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--good-bg); color: var(--good-fg); display: grid; place-items: center; font-style: normal; font-weight: 800; }
+
+/* B 할 일 피드 */
+.b-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; max-width: 1080px; }
+.b-hello { font-size: 22px; font-weight: 800; margin: 0 0 18px; letter-spacing: -0.01em; }
+.b-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 26px; }
+.b-tile { background: var(--surface); border-radius: 14px; padding: 16px 18px; }
+.b-tile .k { font-size: 13px; color: var(--muted); }
+.b-tile .v { font-size: 22px; font-weight: 800; margin: 4px 0 2px; }
+.b-tile .v small { font-size: 14px; font-weight: 600; }
+.b-tile .s { font-size: 12.5px; color: var(--muted); }
+.b-tile .bar { height: 5px; border-radius: 3px; background: var(--soft); margin-top: 10px; overflow: hidden; }
+.b-tile .bar span { display: block; height: 100%; background: var(--ink); }
+.b-feed { display: flex; flex-direction: column; gap: 12px; }
+.b-feed h2 { font-size: 15px; margin: 0 0 2px; color: var(--title); }
+.b-card { background: var(--surface); border-radius: 14px; padding: 18px 20px; display: flex; gap: 18px; align-items: center; }
+.b-card .c { flex: 1; min-width: 0; }
+.b-card .t { font-size: 16px; font-weight: 700; margin: 6px 0 3px; text-wrap: pretty; }
+.b-card .s { color: var(--muted); font-size: 13.5px; }
+.b-side { display: flex; flex-direction: column; gap: 14px; }
+.b-box { background: var(--surface); border-radius: 14px; padding: 16px 18px; }
+.b-box h3 { font-size: 14px; margin: 0 0 10px; }
+.b-done { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line-soft); font-size: 13px; color: var(--title); }
+.b-done:first-of-type { border-top: 0; }
+.b-done i { flex: 0 0 18px; height: 18px; border-radius: 50%; background: var(--good-bg); color: var(--good-fg); font-style: normal; font-size: 11px; font-weight: 800; display: grid; place-items: center; margin-top: 1px; }
+.b-ask { display: flex; flex-direction: column; gap: 8px; }
+.b-ask button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 9px 12px; font-size: 13px; }
+.b-call { max-width: 960px; }
+.b-reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 18px 0 20px; }
+.b-reason { text-align: left; background: var(--surface); border: 2px solid transparent; border-radius: 14px; padding: 16px 18px; }
+.b-reason.on { border-color: var(--ink); }
+.b-reason .k { font-size: 13.5px; font-weight: 700; color: var(--title); }
+.b-reason .v { font-size: 24px; font-weight: 800; margin: 2px 0; }
+.b-reason .s { font-size: 12.5px; color: var(--muted); }
+.b-list { background: var(--surface); border-radius: 14px; padding: 4px 0; }
+.b-li { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-top: 1px solid var(--line-soft); }
+.b-li:first-child { border-top: 0; }
+.b-li .who { flex: 0 0 120px; font-weight: 700; font-size: 15px; }
+.b-li .who small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.b-li .why { flex: 1; min-width: 0; color: var(--title); }
+.b-li .amt { flex: 0 0 auto; font-weight: 700; white-space: nowrap; }
+.b-li .go { display: flex; gap: 6px; }
+.b-li .go .btn { padding: 8px 12px; font-size: 13px; border-radius: 8px; }
+.b-li.done { color: var(--off); }
+.b-li.done .who, .b-li.done .why, .b-li.done .amt { color: var(--muted); }
+.b-li.done .why { text-decoration: none; }
+
+/* C 그래프 먼저 */
+.c-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; max-width: 1180px; }
+.c-panel { background: var(--surface); border-radius: 14px; padding: 22px 24px; min-width: 0; }
+.c-k { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+.c-big { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0 6px; }
+.c-big small { font-size: 18px; font-weight: 700; }
+.c-chart { width: 100%; height: auto; display: block; margin-top: 10px; }
+.c-chart text { font-family: var(--font); font-size: 11px; fill: var(--muted); }
+.c-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+.c-legend span::before { content: ""; display: inline-block; width: 16px; height: 0; vertical-align: middle; margin-right: 6px; border-top: 2px solid var(--ink); }
+.c-legend .fc::before { border-top: 2px dashed var(--accent); }
+.c-legend .gl::before { border-top: 1px dashed var(--off); }
+.c-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 18px; border-top: 1px solid var(--line-soft); }
+.c-stat { padding: 14px 16px 2px 0; }
+.c-stat + .c-stat { padding-left: 16px; border-left: 1px solid var(--line-soft); }
+.c-stat .k { font-size: 12.5px; color: var(--muted); }
+.c-stat .v { font-size: 18px; font-weight: 800; }
+.c-stat .s { font-size: 12px; color: var(--muted); }
+.c-stat svg { display: block; margin-top: 6px; }
+.c-side { display: flex; flex-direction: column; gap: 16px; }
+.c-side h3 { font-size: 15px; margin: 0 0 12px; }
+.c-split { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.c-split .row { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; font-size: 13px; }
+.c-split .bar { height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
+.c-split .bar span { display: block; height: 100%; background: var(--accent-bar); }
+.c-split .sub { grid-column: 2 / -1; color: var(--muted); font-size: 12.5px; margin-top: -6px; }
+.c-todo { display: flex; flex-direction: column; }
+.c-todo div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line-soft); font-size: 13.5px; }
+.c-todo div:first-child { border-top: 0; }
+.c-call { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 0; max-width: 1180px; background: var(--surface); border-radius: 14px; overflow: hidden; min-height: 640px; }
+.c-list { border-right: 1px solid var(--line); min-width: 0; }
+.c-list-head { padding: 18px 20px 14px; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; border-bottom: 1px solid var(--line); }
+.c-list-head h1 { font-size: 18px; margin: 0; }
+.c-meter { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.c-meter .track { width: 90px; height: 5px; background: var(--soft); border-radius: 3px; overflow: hidden; }
+.c-meter .track span { display: block; height: 100%; background: var(--ink); }
+.c-filter { display: flex; gap: 14px; padding: 10px 20px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--line-soft); }
+.c-filter b { color: var(--ink); }
+.c-row { display: grid; grid-template-columns: 10px 84px minmax(0, 1fr) 76px 62px; gap: 12px; align-items: center; padding: 11px 20px; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+.c-row.on { background: var(--tile); }
+.c-row .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.c-row .dot.next { background: var(--off); }
+.c-row .dot.sv { background: #7A8AA8; }
+.c-row .n { font-weight: 700; }
+.c-row .w { color: var(--title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-row .m { text-align: right; font-weight: 600; }
+.c-row .d { text-align: right; color: var(--muted); font-size: 12.5px; }
+.c-detail { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.c-detail h2 { font-size: 22px; margin: 0; }
+.c-facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 13px; }
+.c-facts dt { color: var(--muted); }
+.c-facts dd { margin: 0; }
+.c-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+.c-btns .btn-main { grid-column: 1 / -1; }
+.c-keys { font-size: 12px; color: var(--muted); padding: 10px 20px; }
+.c-keys kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-family: inherit; background: var(--surface); }
+
+@media (max-width: 1100px) {
+  .b-grid, .c-grid { grid-template-columns: minmax(0, 1fr); }
+  .c-call { grid-template-columns: minmax(0, 1fr); }
+  .c-list { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 760px) {
+  .rail { display: none; }
+  .body { padding: 20px 16px 40px; }
+  .top { padding: 10px 16px; }
+  .a-head { font-size: 24px; }
+  .b-tiles, .b-reasons { grid-template-columns: minmax(0, 1fr); }
+  .b-li { flex-wrap: wrap; }
+  .b-li .who { flex: 1 1 100%; }
+  .c-stats { grid-template-columns: minmax(0, 1fr); }
+  .c-stat + .c-stat { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-soft); }
+  .c-row { grid-template-columns: 10px 70px minmax(0, 1fr) 64px; }
+  .c-row .d { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="tool" role="toolbar" aria-label="시안 고르기">
+  <span class="tool-name">세르클 화면 방향 시안</span>
+  <div class="seg" id="segDir" aria-label="방향">
+    <button type="button" data-dir="d">고른 안 A+C</button>
+    <button type="button" data-dir="a">A 한 문장</button>
+    <button type="button" data-dir="b">B 할 일 피드</button>
+    <button type="button" data-dir="c">C 그래프 먼저</button>
+  </div>
+  <div class="seg" id="segScr" aria-label="화면">
+    <button type="button" data-scr="home">원장 한눈에</button>
+    <button type="button" data-scr="call">실장 오늘 연락</button>
+  </div>
+  <span class="tool-note" id="note"></span>
+</div>
+
+<div class="frame">
+  <nav class="rail" id="rail" aria-label="메뉴"></nav>
+  <div class="main">
+    <div class="top" id="top"></div>
+    <main class="body" id="view"></main>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NOTES = {
+    d: 'A 틀 그대로에 C의 이번 달 매출 그래프를 맨 위로. 문장 하나가 그래프 제목이 되고, 버튼은 그래프 바로 아래 하나. 실장 화면은 A 그대로.',
+    a: '한 화면에 문장 하나와 버튼 하나. 나머지는 한 줄로 접어 두고 눌러야 열립니다. 실장은 한 사람씩 넘깁니다.',
+    b: '숫자 셋을 한 줄로, 그 아래 할 일 카드를 위에서부터. 카드마다 버튼 하나. 세르클이 해 둔 일은 오른쪽에 따로.',
+    c: '이번 달 매출 그래프가 화면의 주인공. 숫자는 그래프 위에 하나, 아래에 작게 셋. 실장은 조용한 명단과 오른쪽 상세.'
+  };
+
+  var NAV = {
+    owner: [
+      { no: 1, cap: '이번 달 숫자', items: [['한눈에', 'home'], ['손익표'], ['월별 숫자'], ['성과']] },
+      { no: 2, cap: '계획', items: [['역산 계획'], ['제안']] },
+      { no: 3, cap: '오늘 할 일', items: [['연락', null, 65], ['상담 보드']] },
+      { no: 4, cap: '계획대로 되나', items: [['계획 대비'], ['캠페인'], ['만족도']] },
+      { cap: '기록과 설정', items: [['고객'], ['설정']] }
+    ],
+    manager: [
+      { cap: '이번 달 숫자', items: [['내 숫자']] },
+      { cap: '오늘 할 일', items: [['연락', 'call', 20], ['문의함', null, 1], ['상담 보드']] },
+      { cap: '계획대로 되나', items: [['계획 대비']] },
+      { cap: '기록과 설정', items: [['고객']] }
+    ]
+  };
+
+  function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content; }
+
+  function drawRail(role, scr) {
+    var rail = document.getElementById('rail');
+    var out = '<div class="rail-logo"><i></i>세르클</div>';
+    NAV[role].forEach(function (g) {
+      var on = g.items.some(function (it) { return it[1] === scr; });
+      out += '<div class="rail-group' + (on ? ' on' : '') + (g.no ? '' : ' plain') + '"><div class="rail-cap">' + (g.no ? '<b>' + g.no + '</b>' : '') + g.cap + '</div>';
+      g.items.forEach(function (it) {
+        out += '<div class="rail-item' + (it[1] === scr ? ' on' : '') + '"><span>' + it[0] + '</span>' + (it[2] ? '<span class="rail-badge">' + it[2] + '</span>' : '') + '</div>';
+      });
+      out += '</div>';
+    });
+    out += role === 'owner'
+      ? '<div class="rail-me"><i>이</i>이원장 대표원장</div>'
+      : '<div class="rail-me"><i>A</i>실장A 실장</div>';
+    rail.innerHTML = out;
+  }
+
+  function drawTop(role) {
+    document.getElementById('top').innerHTML = '<strong>바로그의원 평택점</strong><span>' + (role === 'owner' ? '이원장 대표원장' : '실장A 실장') +
+      '</span><span class="sp"></span><span class="num">11월 6일(금) 오전 8:00</span><span>오전 7:50 스마트닥터에서 읽어 옴</span><span class="tag-ex">예시 데이터</span>';
+  }
+
+  /* ---------- A 한 문장 ---------- */
+  function aHome() {
+    return '<div class="a-wrap">' +
+      '<section>' +
+        '<p class="a-date">11월 6일 금요일 아침이에요</p>' +
+        '<h1 class="a-head">이번 달은 목표보다 <em class="num">1,668만 원</em> 모자랄 것 같아요</h1>' +
+        '<p class="a-lead num">지금 흐름이면 11월 매출은 18,332만 원이에요. 목표는 20,000만 원이에요.</p>' +
+        '<div class="a-bar" aria-hidden="true"><span style="width:16%;background:var(--ink)"></span><span style="width:75.7%;background:var(--accent-bar)"></span></div>' +
+        '<div class="a-legend num"><span>지금까지 결제 3,190만 원</span><span>남은 21일 예상 15,142만 원</span></div>' +
+        '<div class="a-cta"><button class="btn btn-main btn-big" type="button">모자란 만큼 메울 방법 보기</button><button class="link small" type="button">이 예상은 이렇게 셌어요</button></div>' +
+      '</section>' +
+      '<section class="a-sec"><h2>오늘 할 일 3개</h2><div class="a-rows">' +
+        aRow('보류 고객 18명에게 연락하기', '어제까지 상담받고 결제를 미룬 분들이에요', '견적 1,484만 원') +
+        aRow('다음 시술 시기가 된 고객 10명', '연락한 분 셋 중 한 분꼴로 예약했어요', '10명') +
+        aRow('밤사이 문의 6건에 답하기', '오전 10:30까지 첫 답을 보내면 좋아요', '6건') +
+      '</div><button class="link small a-more" type="button">할 일 2개 더 보기</button></section>' +
+      '<section class="a-sec"><h2>어제는</h2><div class="a-rows">' +
+        aRow('수납 812만 원, 10월 하루 평균보다 15만 원 많았어요', null, '') +
+        aRow('실장B 상담 당일 결제율이 이번 주 52%예요', '10월에는 59.5%였어요', '') +
+        aRow('12월에 해 볼 만한 제안이 3개 있어요', '첫째는 리프팅 받고 안 오신 213명에게 보내는 문자예요', '') +
+      '</div></section>' +
+    '</div>';
+  }
+  function dHome() {
+    return '<div class="a-wrap d-wrap">' +
+      '<section>' +
+        '<p class="a-date">11월 6일 금요일 아침이에요</p>' +
+        '<h1 class="a-head">이번 달은 목표보다 <em class="num">1,668만 원</em> 모자랄 것 같아요</h1>' +
+        '<p class="a-lead num">지금 흐름이면 11월 매출은 18,332만 원이에요. 목표는 20,000만 원이에요.</p>' +
+        '<div class="d-chart">' + cChart() +
+        '<div class="c-legend"><span>결제한 돈</span><span class="fc">지금 흐름의 예상</span><span class="gl">목표</span></div></div>' +
+        '<div class="a-cta"><button class="btn btn-main btn-big" type="button">모자란 만큼 메울 방법 보기</button><button class="link small" type="button">이 예상은 이렇게 셌어요</button></div>' +
+      '</section>' +
+      '<section class="a-sec"><h2>오늘 할 일 3개</h2><div class="a-rows">' +
+        aRow('보류 고객 18명에게 연락하기', '어제까지 상담받고 결제를 미룬 분들이에요', '견적 1,484만 원') +
+        aRow('다음 시술 시기가 된 고객 10명', '연락한 분 셋 중 한 분꼴로 예약했어요', '10명') +
+        aRow('밤사이 문의 6건에 답하기', '오전 10:30까지 첫 답을 보내면 좋아요', '6건') +
+      '</div><button class="link small a-more" type="button">할 일 2개 더 보기</button></section>' +
+      '<section class="a-sec"><h2>어제는</h2><div class="a-rows">' +
+        aRow('수납 812만 원, 10월 하루 평균보다 15만 원 많았어요', null, '') +
+        aRow('실장B 상담 당일 결제율이 이번 주 52%예요', '10월에는 59.5%였어요', '') +
+        aRow('12월에 해 볼 만한 제안이 3개 있어요', '첫째는 리프팅 받고 안 오신 213명에게 보내는 문자예요', '') +
+      '</div></section>' +
+    '</div>';
+  }
+  function aRow(t, s, v) {
+    return '<button class="a-row" type="button"><span class="t">' + t + (s ? '<small>' + s + '</small>' : '') + '</span>' +
+      (v ? '<span class="v num">' + v + '</span>' : '') + '<span class="chev" aria-hidden="true">›</span></button>';
+  }
+  function aCall() {
+    return '<div class="a-call">' +
+      '<div><p class="a-date">오늘 연락할 고객</p><div class="a-prog"><strong class="num">20명 중 첫째 분</strong><div class="track"><span></span></div><span class="muted small num">보류 10, 시술 시기 9, 만족도 2</span></div></div>' +
+      '<article class="a-card">' +
+        '<div><span class="pill acc">보류 2일째</span><p class="a-name">한*솔 님</p><span class="muted small num">40대 여, 끝번호 8246, 재진</span></div>' +
+        '<p class="a-why num">어제 포텐자 3회 견적 165만 원을 들으시고 가격을 고민하고 계세요.</p>' +
+        '<div class="say"><small>이렇게 말해 보세요</small>“고객님, 어제 상담받으신 포텐자 3회 일정과 가격 다시 안내드리려고 연락드렸어요. 편하실 때 답장 주세요.”</div>' +
+        '<div class="a-actions"><button class="btn btn-main btn-big" type="button">전화하기</button><button class="btn btn-soft" type="button">문자 보내기</button><button class="btn btn-soft" type="button">내일로 미루기</button></div>' +
+        '<button class="link small" type="button" style="align-self:flex-start">고객 기록 보기</button>' +
+      '</article>' +
+      '<div class="a-next small"><span>다음 분</span><strong>문*아 님</strong><span>리쥬란 견적 84만 원에서 보류</span><span class="chev">›</span></div>' +
+      '<div class="a-done"><p class="muted small" style="margin:0 0 10px">20명을 다 마치면 이렇게 보여요</p>' +
+        '<div class="a-done-card"><i>✓</i><div><strong>오늘 연락을 다 마쳤어요</strong> <span class="pill">예시</span><div class="muted small num">20명 중 7명이 예약을 잡았어요. 못 받은 4명은 내일 명단에 다시 올려 둘게요.</div></div></div></div>' +
+    '</div>';
+  }
+
+  /* ---------- B 할 일 피드 ---------- */
+  function bHome() {
+    return '<div class="b-grid"><div>' +
+      '<h1 class="b-hello">이원장님, 오늘 보실 일이 4개 있어요</h1>' +
+      '<div class="b-tiles">' +
+        '<div class="b-tile"><div class="k">11월 예상 매출</div><div class="v num">18,332<small>만 원</small></div><div class="s num">목표 20,000만 원의 91.7%</div><div class="bar"><span style="width:91.7%"></span></div></div>' +
+        '<div class="b-tile"><div class="k">어제 수납</div><div class="v num">812<small>만 원</small></div><div class="s num">10월 하루 평균 797만 원</div></div>' +
+        '<div class="b-tile"><div class="k">어제 상담 당일 결제</div><div class="v num">64.7<small>%</small></div><div class="s num">10월 평균 65.1%</div></div>' +
+      '</div>' +
+      '<div class="b-feed"><h2>위에서부터 보시면 돼요</h2>' +
+        bCard('매출', 'warn', '목표까지 1,668만 원이 모자라요', '신환으로 825만 원, 구환으로 843만 원을 메우는 계획을 만들어 뒀어요', '역산 계획 보기', true) +
+        bCard('연락', 'acc', '보류 고객 18명이 견적 1,484만 원을 고민하고 있어요', '11월 3일부터 연락한 45명 중 15명이 예약했어요. 오늘 명단에 넣어 뒀어요', '명단 보기') +
+        bCard('실장', '', '실장B 상담 당일 결제율이 이번 주 52%로 내려갔어요', '10월에는 59.5%였어요. 보류 사유는 "가격 고민"이 가장 많아요', '상담 다시 보기') +
+        bCard('제안', '', '12월 1일에 리프팅 고객 213명에게 보낼 문자를 준비했어요', '작년 12월 리프팅 매출이 11월보다 41.6% 늘었어요', '캠페인 만들기') +
+      '</div></div>' +
+      '<aside class="b-side">' +
+        '<div class="b-box"><h3>세르클이 해 둔 일</h3>' +
+          bDone('오전 7:50에 스마트닥터에서 어제 기록을 읽어 왔어요') +
+          bDone('오늘 연락 명단 65명을 실장과 데스크에 나눠 뒀어요') +
+          bDone('11월 이벤트 마감 문자를 내일 오전 10시에 205명에게 보내도록 잡아 뒀어요') +
+        '</div>' +
+        '<div class="b-box"><h3>물어보기</h3><div class="b-ask"><button type="button">10월 스킨부스터 매출이 왜 늘었나요</button><button type="button">실장B 보류 고객은 누구예요</button></div></div>' +
+      '</aside></div>';
+  }
+  function bCard(tag, tone, t, s, btn, main) {
+    return '<article class="b-card"><div class="c"><span class="pill ' + tone + '">' + tag + '</span><div class="t num">' + t + '</div><div class="s num">' + s + '</div></div>' +
+      '<button class="btn ' + (main ? 'btn-main' : 'btn-line') + '" type="button">' + btn + '</button></article>';
+  }
+  function bDone(t) { return '<div class="b-done"><i>✓</i><span>' + t + '</span></div>'; }
+  function bCall() {
+    var rows = [
+      ['한*솔', '포텐자', '예약 잡음, 11월 10일(화) 오전 11시', '165만 원', 'done'],
+      ['문*아', '리쥬란', '남편과 상의하신다고 했어요', '84만 원'],
+      ['임*정', '초진, 제모', '다른 병원과 비교 중이세요', '40만 원'],
+      ['홍*희', '초진, 스킨부스터', '10월 29일 상담 뒤 연락한 적이 없어요', '123만 원'],
+      ['윤*지', '초진, 스킨부스터', '10월 29일 상담 뒤 연락한 적이 없어요', '136만 원'],
+      ['정*경', '초진, 스킨부스터', '10월 29일 상담 뒤 연락한 적이 없어요', '122만 원'],
+      ['송*민', '초진, 제모', '10월 29일 상담 뒤 연락한 적이 없어요', '62만 원']
+    ];
+    return '<div class="b-call"><h1 class="b-hello" style="margin:0">오늘 연락할 고객 20명</h1><div class="muted num">1명 끝냈어요. 19명 남았어요.</div>' +
+      '<div class="b-reasons">' +
+        '<button class="b-reason on" type="button"><div class="k">보류</div><div class="v num">10명</div><div class="s num">견적 합계 841만 원</div></button>' +
+        '<button class="b-reason" type="button"><div class="k">다음 시술 시기</div><div class="v num">9명</div><div class="s">지난 시술 뒤 1주에서 4주</div></button>' +
+        '<button class="b-reason" type="button"><div class="k">만족도</div><div class="v num">2명</div><div class="s">다음 계획을 못 들었다고 답함</div></button>' +
+      '</div>' +
+      '<div class="b-list">' + rows.map(function (r) {
+        var done = r[4] === 'done';
+        return '<div class="b-li' + (done ? ' done' : '') + '"><div class="who">' + (done ? '✓ ' : '') + r[0] + '<small>' + r[1] + '</small></div><div class="why num">' + r[2] + '</div><div class="amt num">' + r[3] + '</div>' +
+          (done ? '<div class="go"><span class="pill good">끝</span></div>' : '<div class="go"><button class="btn btn-line" type="button">전화</button><button class="btn btn-soft" type="button">문자</button></div>') + '</div>';
+      }).join('') +
+      '<div class="b-li"><button class="link small" type="button">보류 3명 더 보기</button></div></div></div>';
+  }
+
+  /* ---------- C 그래프 먼저 ---------- */
+  function cChart() {
+    // 11월 누적 결제. 실제는 11월 2일부터 5일까지 기록, 예상은 남은 영업일 21일에 하루 721만 원씩
+    var W = 760, H = 290, L = 66, R = 120, T = 26, B = 28;
+    var max = 21000, x = function (d) { return L + (d - 1) / 29 * (W - L - R); }, y = function (v) { return T + (1 - v / max) * (H - T - B); };
+    var actual = [[1, 0], [2, 748], [3, 1583], [4, 2378], [5, 3190]];
+    var fc = [[5, 3190]], v = 3190, per = (18332 - 3190) / 21;
+    for (var d = 6; d <= 30; d++) { var dow = (d) % 7; /* 11월 1일이 일요일 */ if (dow !== 1) v += per; fc.push([d, v]); }
+    function path(pts) { return pts.map(function (p, i) { return (i ? 'L' : 'M') + x(p[0]).toFixed(1) + ' ' + y(p[1]).toFixed(1); }).join(' '); }
+    var g = '';
+    [0, 5000, 10000, 15000, 20000].forEach(function (t) {
+      g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(t) + '" y2="' + y(t) + '" stroke="var(--line-soft)" stroke-width="1"/>';
+      g += '<text x="' + (L - 8) + '" y="' + (y(t) + 4) + '" text-anchor="end">' + ({0:'0',5000:'5천만',10000:'1억',15000:'1억 5천만',20000:'2억'})[t] + '</text>';
+    });
+    [1, 8, 15, 22, 30].forEach(function (d) { g += '<text x="' + x(d) + '" y="' + (H - 8) + '" text-anchor="middle">11/' + d + '</text>'; });
+    g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(20000) + '" y2="' + y(20000) + '" stroke="var(--off)" stroke-dasharray="3 4" stroke-width="1.2"/>';
+    g += '<text x="' + x(12) + '" y="' + (y(20000) - 6) + '" style="fill:var(--title);font-weight:600">목표 20,000만 원</text>';
+    g += '<line x1="' + x(6) + '" x2="' + x(6) + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--line)" stroke-width="1"/>';
+    g += '<text x="' + x(6) + '" y="' + (T - 10) + '" text-anchor="middle" style="font-weight:600">오늘</text>';
+    g += '<path d="' + path(fc) + '" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-dasharray="5 4"/>';
+    g += '<path d="' + path(actual) + ' L' + x(5) + ' ' + y(0) + ' L' + x(1) + ' ' + y(0) + 'Z" fill="var(--soft)"/>';
+    g += '<path d="' + path(actual) + '" fill="none" stroke="var(--ink)" stroke-width="2.6"/>';
+    g += '<circle cx="' + x(5) + '" cy="' + y(3190) + '" r="4" fill="var(--ink)"/>';
+    g += '<text x="' + (x(5) - 6) + '" y="' + (y(3190) - 10) + '" text-anchor="end" style="fill:var(--ink);font-weight:700">3,190만</text>';
+    g += '<circle cx="' + x(30) + '" cy="' + y(18332) + '" r="4" fill="var(--accent)"/>';
+    g += '<text x="' + (x(30) + 10) + '" y="' + (y(18332) + 18) + '" style="fill:var(--accent);font-weight:700">예상 18,332만</text>';
+    // 모자란 만큼 괄호
+    g += '<line x1="' + x(30) + '" x2="' + x(30) + '" y1="' + y(20000) + '" y2="' + y(18332) + '" stroke="var(--warn-fg)" stroke-width="2"/>';
+    g += '<text x="' + (x(30) + 10) + '" y="' + ((y(20000) + y(18332)) / 2 + 4) + '" style="fill:var(--warn-fg);font-weight:700">1,668만 모자람</text>';
+    return '<svg class="c-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="11월 누적 결제 그래프. 11월 5일까지 3,190만 원, 11월 30일 예상 18,332만 원, 목표 20,000만 원">' + g + '</svg>';
+  }
+  function spark(vals, lo, hi) {
+    var W = 120, H = 28, pts = vals.map(function (v, i) { return [i / (vals.length - 1) * (W - 6) + 3, H - 4 - (v - lo) / (hi - lo) * (H - 8)]; });
+    var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+    var e = pts[pts.length - 1];
+    return '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><path d="' + d + '" fill="none" stroke="var(--off)" stroke-width="1.6"/><circle cx="' + e[0] + '" cy="' + e[1] + '" r="3" fill="var(--ink)"/></svg>';
+  }
+  function cHome() {
+    return '<div class="c-grid">' +
+      '<section class="c-panel">' +
+        '<div class="c-k">11월 예상 매출 <span class="pill">추론</span></div>' +
+        '<div class="c-big num">18,332<small>만 원</small></div>' +
+        '<span class="pill warn num">목표보다 1,668만 원 적어요</span>' +
+        cChart() +
+        '<div class="c-legend"><span>결제한 돈</span><span class="fc">지금 흐름의 예상</span><span class="gl">목표</span></div>' +
+        '<div class="c-stats">' +
+          '<div class="c-stat"><div class="k">어제 수납</div><div class="v num">812만 원</div><div class="s num">하루 800만 원이면 목표에 닿아요</div>' + spark([748, 835, 795, 812], 700, 860) + '</div>' +
+          '<div class="c-stat"><div class="k">상담 당일 결제율</div><div class="v num">64.7%</div><div class="s num">10월 65.1%</div>' + spark([62.5, 61.1, 60.0, 64.7], 58, 66) + '</div>' +
+          '<div class="c-stat"><div class="k">이번 주 문의</div><div class="v num">102건</div><div class="s num">계획 111건보다 9건 적어요</div>' + spark([19, 46, 73, 102], 0, 111) + '</div>' +
+        '</div>' +
+      '</section>' +
+      '<aside class="c-side">' +
+        '<section class="c-panel"><h3 class="num">모자란 1,668만 원 메우기</h3><div class="c-split">' +
+          '<div class="row"><span>신환</span><div class="bar"><span style="width:49.5%"></span></div><strong class="num">825만</strong><div class="sub num">상담 26건, 문의 59건, 광고비 272만 원 더</div></div>' +
+          '<div class="row"><span>구환</span><div class="bar"><span style="width:50.5%"></span></div><strong class="num">843만</strong><div class="sub num">재진 65건, 고객 238명에게 연락</div></div>' +
+        '</div><button class="btn btn-main" type="button" style="width:100%">역산 계획 보기</button></section>' +
+        '<section class="c-panel"><h3>오늘 할 일</h3><div class="c-todo num">' +
+          '<div><span>보류 고객 연락</span><strong>18명</strong></div>' +
+          '<div><span>다음 시술 시기 연락</span><strong>10명</strong></div>' +
+          '<div><span>밤사이 문의 답</span><strong>6건</strong></div>' +
+          '<div><span>만족도 답 확인</span><strong>7명</strong></div>' +
+          '<div><span>노쇼 고객 연락</span><strong>2명</strong></div>' +
+        '</div></section>' +
+      '</aside></div>';
+  }
+  function cCall() {
+    var rows = [
+      ['', '한*솔', '포텐자, 가격 고민', '165만', '오늘', 1],
+      ['', '문*아', '리쥬란, 남편과 상의', '84만', '오늘'],
+      ['', '임*정', '제모, 다른 병원과 비교', '40만', '오늘'],
+      ['', '백*희', '보톡스, 일정 확인', '10만', '오늘'],
+      ['', '홍*희', '스킨부스터, 상담 뒤 연락 없음', '123만', '오늘'],
+      ['', '윤*지', '스킨부스터, 상담 뒤 연락 없음', '136만', '오늘'],
+      ['', '송*민', '제모, 상담 뒤 연락 없음', '62만', '오늘'],
+      ['', '정*경', '스킨부스터, 상담 뒤 연락 없음', '122만', '오늘'],
+      ['', '손*서', 'CO2, 어제 전화 안 받으심', '15만', '오늘'],
+      ['', '김*은', '스킨부스터, 어제 전화 안 받으심', '84만', '오늘'],
+      ['sv', '김*림', '만족도, 다음 계획 못 들음', '', '내일'],
+      ['sv', '김*영', '만족도, 다음 계획 못 들음', '', '내일'],
+      ['next', '안*민', '에어젯, 시술 시기', '', '11/9'],
+      ['next', '배*경', '제모(다리), 4주 지남', '', '11/10']
+    ];
+    return '<div class="c-call"><div class="c-list">' +
+      '<div class="c-list-head"><h1>오늘 연락할 고객 <span class="num">20</span></h1>' +
+        '<div class="c-meter num">오늘 <div class="track"><span style="width:0%"></span></div> 0 / 20</div>' +
+        '<div class="c-meter num">이번 주 내 몫 <div class="track"><span style="width:60%"></span></div> 24 / 40</div></div>' +
+      '<div class="c-filter"><b>전체 20</b><span>보류 10</span><span>시술 시기 9</span><span>만족도 2</span></div>' +
+      rows.map(function (r) {
+        return '<div class="c-row' + (r[5] ? ' on' : '') + '"><span class="dot ' + r[0] + '"></span><span class="n">' + r[1] + '</span><span class="w">' + r[2] + '</span><span class="m num">' + r[3] + '</span><span class="d num">' + r[4] + '</span></div>';
+      }).join('') +
+      '<div class="c-keys"><kbd>J</kbd> <kbd>K</kbd> 위아래로 옮기기, <kbd>Enter</kbd> 전화</div>' +
+      '</div>' +
+      '<section class="c-detail">' +
+        '<div><span class="pill acc">보류 2일째</span></div>' +
+        '<h2>한*솔 님</h2>' +
+        '<p class="a-why num" style="font-size:16px">어제 포텐자 3회 견적 165만 원을 들으시고 가격을 고민하고 계세요.</p>' +
+        '<div class="say"><small>이렇게 말해 보세요</small>“고객님, 어제 상담받으신 포텐자 3회 일정과 가격 다시 안내드리려고 연락드렸어요. 편하실 때 답장 주세요.”</div>' +
+        '<dl class="c-facts num"><dt>고객</dt><dd>40대 여, 끝번호 8246, 재진</dd><dt>상담</dt><dd>11월 5일 실장A</dd><dt>방문</dt><dd>5번, 누적 수납 38만 원</dd><dt>광고 수신</dt><dd>동의, 8월 26일</dd></dl>' +
+        '<button class="link small" type="button" style="align-self:flex-start">고객 기록 전체</button>' +
+        '<div class="c-btns"><button class="btn btn-main btn-big" type="button">전화하기</button><button class="btn btn-soft" type="button">문자 보내기</button><button class="btn btn-soft" type="button">내일로 미루기</button></div>' +
+      '</section></div>';
+  }
+
+  var VIEWS = { d: { home: dHome, call: aCall }, a: { home: aHome, call: aCall }, b: { home: bHome, call: bCall }, c: { home: cHome, call: cCall } };
+  var state = { dir: 'd', scr: 'home' };
+
+  function readHash() {
+    var m = /^#([abcd])-(home|call)$/.exec(location.hash || '');
+    if (m) { state.dir = m[1]; state.scr = m[2]; }
+  }
+  function render() {
+    var role = state.scr === 'home' ? 'owner' : 'manager';
+    drawRail(role, state.scr);
+    drawTop(role);
+    document.getElementById('view').innerHTML = VIEWS[state.dir][state.scr]();
+    document.getElementById('note').textContent = NOTES[state.dir];
+    document.querySelectorAll('[data-dir]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.dir === state.dir)); });
+    document.querySelectorAll('[data-scr]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.scr === state.scr)); });
+  }
+  function go() { var h = '#' + state.dir + '-' + state.scr; if (location.hash !== h) location.hash = h; else render(); }
+  document.getElementById('segDir').addEventListener('click', function (e) { var b = e.target.closest('[data-dir]'); if (b) { state.dir = b.dataset.dir; go(); } });
+  document.getElementById('segScr').addEventListener('click', function (e) { var b = e.target.closest('[data-scr]'); if (b) { state.scr = b.dataset.scr; go(); } });
+  window.addEventListener('hashchange', function () { readHash(); render(); });
+  readHash(); render();
+})();
+</script>
+</body></html>
