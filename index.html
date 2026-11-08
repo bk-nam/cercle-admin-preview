@@ -16381,7 +16381,7 @@ try {
     var q = ctx.query || {};
     if (q.why && C.why && MGRS.indexOf(q.why) >= 0 && !C.why._fromQuery) { C.why.setOpen('team:' + q.why, true); C.why._fromQuery = true; }
     var pm = m, card = h('section', { class: 'card mo-ptable', dataset: { period: pid } });
-    card.appendChild(h('div', { class: 'mo-pt-head' }, h('h2', { class: 'mo-pt-title' }, C.period.label(pid) + ' 실장 숫자'), ui.base(r.empty ? r.base : r.base + (pid === 'last' ? '' : ', ' + r.label))));
+    card.appendChild(h('div', { class: 'mo-pt-head' }, h('h2', { class: 'mo-pt-title' }, C.period.label(pid) + ' 실장 숫자'), ui.base(r.empty ? r.base : r.base + (pid === 'last' || pid === 'month' ? '' : ', ' + r.label))));
     var grid = h('div', { class: 'mo-pt' });
     grid.appendChild(h('div', { class: 'mo-pt-row is-head' }, h('span', null, '무엇을'), h('span', null, '실장A'), h('span', null, '실장B')));
     function rowEl(label, base, cells, extra) {
