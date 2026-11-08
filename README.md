@@ -4,5 +4,6 @@
 
 - 관리자 웹: https://bk-nam.github.io/cercle-admin-preview/
 - 화면 방향 시안: https://bk-nam.github.io/cercle-admin-preview/directions.html
+- 더 쉽게 만들 다섯 곳 시안: https://bk-nam.github.io/cercle-admin-preview/easier.html
 
 원본은 비공개 레포 ismi-hunu/proj-uprise의 prototypes/cercle-admin-complete/ 에 있고, 이 레포에는 빌드한 결과만 올립니다. 검색에는 걸리지 않게 막아 두었습니다.
