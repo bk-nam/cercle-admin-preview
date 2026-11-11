@@ -740,6 +740,7 @@ button{font-family:inherit}
   /* 누른 곳 */
   function label(el){
     var t=(el.getAttribute('data-go')==='__back'?'뒤로':'')||(el.getAttribute('aria-label')||el.getAttribute('title')||el.textContent||'').replace(/\s+/g,' ').trim();
+    if(el.classList&&el.classList.contains('p-chip')){ var tg=el.querySelector('.tg'); if(tg) t=t.slice(0,t.length-tg.textContent.trim().length).trim()+' (화면 바로가기)' }
     return t.slice(0,60)||el.getAttribute('data-tr')||el.getAttribute('data-go')||(el.className&&String(el.className).slice(0,30))||el.tagName.toLowerCase();
   }
   document.addEventListener('click',function(e){
